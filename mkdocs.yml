@@ -1,0 +1,30 @@
+site_name: ConnectedVan Documentation
+site_description: Open-source hardware for vanlife automation.
+site_author: Petr Dočekal
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.indexes
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - md_in_html
+  - admonition
+
+nav:
+  - Home: index.md
+  - Autoterm Heater:
+      - Hardware & Pinout: Autoterm Heater/hardware.md
+      - Firmware & Flashing: Autoterm Heater/firmware.md
