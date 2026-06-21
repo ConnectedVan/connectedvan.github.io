@@ -1,0 +1,29 @@
+/* Custom CSS for ConnectedVan */
+
+:root {
+  /* Main Theme Color: #1abcf2 */
+  --ifm-color-primary: #1abcf2;
+  --ifm-color-primary-dark: #10a9dd;
+  --ifm-color-primary-darker: #0f9fcf;
+  --ifm-color-primary-darkest: #0c83aa;
+  --ifm-color-primary-light: #31c2f3;
+  --ifm-color-primary-lighter: #3cc6f4;
+  --ifm-color-primary-lightest: #61d1f6;
+  
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For Dark Mode */
+[data-theme='dark'] {
+  /* #1abcf2 is bright enough to look incredible in dark mode natively */
+  --ifm-color-primary: #1abcf2;
+  --ifm-color-primary-dark: #10a9dd;
+  --ifm-color-primary-darker: #0f9fcf;
+  --ifm-color-primary-darkest: #0c83aa;
+  --ifm-color-primary-light: #31c2f3;
+  --ifm-color-primary-lighter: #3cc6f4;
+  --ifm-color-primary-lightest: #61d1f6;
+  
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}

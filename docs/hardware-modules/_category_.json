@@ -1,0 +1,8 @@
+{
+  "label": "Hardware Modules",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Custom ESP32-C6 printed circuit boards designed for campervans."
+  }
+}
