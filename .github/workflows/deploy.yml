@@ -33,5 +33,5 @@ jobs:
       - name: Build and Deploy Site
         run: npm run deploy
         env:
-          SSH_AUTH_SOCK: /tmp/ssh_auth_sock
+          GIT_USER: ${{ github.actor }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
