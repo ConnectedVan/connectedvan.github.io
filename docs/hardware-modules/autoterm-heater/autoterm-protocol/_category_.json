@@ -1,0 +1,8 @@
+{
+  "label": "Autoterm Protocol",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Deep-dive documentation on the reverse-engineered Autoterm serial protocol."
+  }
+}

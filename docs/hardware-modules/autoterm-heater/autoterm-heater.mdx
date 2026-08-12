@@ -1,0 +1,123 @@
+---
+sidebar_position: 1
+title: Autoterm Heater Module
+---
+
+# Autoterm Heater Module
+
+The **ConnectedVan Autoterm Heater ** module is a custom, ESP32-C6 based hardware bridge designed to safely integrate Autoterm diesel heaters into your smart van ecosystem.
+
+By utilizing the proprietary Autoterm serial protocol, this module grants Home Assistant full control over your heating system while maintaining complete electrical isolation between the vehicle's high-power 12V/24V chassis and the microcontroller's sensitive 3.3V logic.
+
+### Key Features
+* **Galvanic Isolation:** Digital isolators (ADUM1201) protect the ESP32 from voltage spikes on the heater bus.
+* **Passthrough Architecture:** Retain your original Autoterm wall controller as a physical fallback.
+* **Smart Power Routing:** Power the board directly from the heater harness or via an external battery.
+* **Controller Re-initialization:** An onboard Solid State Relay (SSR) allows the ESP32 to digitally cut power to the original controller, forcing it to resync if the microcontroller restarts.
+
+## Technical Specifications
+
+| Component | Specification |
+| :--- | :--- |
+| **Microcontroller** | ESP32-C6 (Wi-Fi 6 & Bluetooth LE) |
+| **Operating Voltage** | 12V / 24V DC (Vehicle System) |
+| **Logic Level** | 3.3V (ESP32) / 5V (UART Data) |
+| **Isolation** | ADUM1201 Digital Isolators |
+| **Communication** | UART (Reverse-engineered Autoterm protocol) |
+
+---
+
+![Autoterm Heater Board Pinout](/img/AutotermHeater/AutotermHeater_v1.1_pinout.svg)
+
+## Hardware Interface & Pinout
+
+### 1. Main Heater & Controller Connection (Bottom JST Ports)
+These ports handle the direct communication between the heater, the smart board, and the original control panel. 
+
+| Pin Name | Function | Voltage / Limit | Description |
+| :--- | :--- | :--- | :--- |
+| **H_VBAT** | Heater Power In | 12V / 24V | Main power supply coming from the heater harness. |
+| **H_GND** | Heater Ground | 0V | Common ground for the heater harness. |
+| **H_RX** | Receive (Heater)| 5V Logic | UART receiving data from the heater. |
+| **H_TX** | Transmit (Heater) | 5V Logic | UART transmitting data to the heater. |
+| **C_VBAT** | Controller Power | ~1.2A (SSR) | Power out to the original controller. Switched via ESP32 to force initialization. |
+| **C_GND** | Controller Ground | 0V | Ground passed through to the original controller. |
+| **C_RX** | Receive (Controller)| 5V Logic | UART receiving data from the controller. |
+| **C_TX** | Transmit (Controller) | 5V Logic | UART transmitting data to the controller. |
+
+### 2. Accessory Terminal (Top Left Green Terminal)
+Provides integration for custom physical interfaces. These pins have no hardcoded function and are exposed directly to Home Assistant for your custom automations.
+
+| Pin Name | Function | Voltage / Limit | Description |
+| :--- | :--- | :--- | :--- |
+| **BTN** | Physical Button | 5V Logic (<5mA) | Input for a momentary push button (Wire between `BTN` and `+5V`). |
+| **+5V** | Accessory Power | 5V DC (~1A+) | Output power to supply the external button and/or LED. |
+| **LED** | Switched Ground | 0V Active (~1A+) | MOSFET switched ground to drive an LED. (Wire LED between `+5V` and `LED` using a proper resistor). |
+
+### 3. External Power & Inputs (Bottom Left Green Terminal)
+Used for auxiliary power and reading external triggers from your broader smart system. 
+
+| Pin Name | Function | Voltage / Limit | Description |
+| :--- | :--- | :--- | :--- |
+| **V_IN** | External Power In | 10V - 30V DC (500mA)| Alternative power source for the ESP32 logic side. |
+| **GND** | External Ground | 0V | Ground for the external power source and digital inputs. |
+| **IN_1** | Digital Input 1 | 5V - 30V DC (<10mA) | Opto-isolated input for smart system triggers or future deep sleep waking. |
+| **IN_2** | Digital Input 2 | 5V - 30V DC (<10mA) | Opto-isolated input for smart system triggers. |
+
+---
+
+## Power Configurations & Wiring
+
+The board is highly flexible and can adapt to different van architectures. Power routing is dictated by the two jumpers located at **J2** (bottom right of the board).
+
+| Power from Heater (Default) | Power from External Source |
+| :---: | :---: |
+| ![Jumper configuration for Heater power](/img/AutotermHeater/AutotermHeater_v1.1_jmp_heater.png) | ![Jumper configuration for External power](/img/AutotermHeater/AutotermHeater_v1.1_jmp_external.png) |
+| *J2 configured to the **H** position* | *J2 configured to the **E** position* |
+
+### Variant 1: Power from Heater (Default)
+This is the simplest, plug-and-play setup for most users. The board draws its logic power directly from the heater's wiring harness, meaning the smart system is online and functioning whenever the heater has power.
+1. **Jumper Configuration:** Ensure both jumpers on **J2** are set to the **`H`** (Heater) position.
+2. **Wiring:** Plug the cable coming from your Autoterm heater directly into the JST **`HEATER`** port. 
+
+### Variant 2: External Power Source
+Use this variant if your heater is powered from a different battery bank than your smart system. Because the board is galvanically isolated, cross-battery setups are completely safe. This variant is also ideal if you want the ability to shut off your entire smart system from a single centralized place while leaving the heater untouched. 
+
+1. **Jumper Configuration:** Move **both** jumpers on **J2** to the **`E`** (External) position.
+2. **Wiring:** Connect your smart system's 12V/24V power supply to the **`V_IN`** and **`GND`** pins on the lower-left terminal.
+
+### Optional Add-ons (For Both Variants)
+
+Regardless of how you power the board, you can utilize the following independent features to enhance your setup:
+
+* **Original Controller:** Connect your physical Autoterm control panel to the `CONTROLLER` JST port. The ESP32 can electronically cut power to this controller. This is primarily required to force the original controller to re-initialize if the ESP32 restarts, ensuring the UART communication between all devices remains perfectly synchronized.
+* **Custom Button & LED:** You can connect an external button, an external LED, or a combination of both (like a 5V illuminated push-button). Connect a momentary switch between `BTN` and `+5V`. Connect an indicator LED between `LED` and `+5V` (ensure you use a proper resistor for your specific LED, as the output is 5V). Because these have no default function, they are fantastic for triggering custom Home Assistant routines.
+* **External Triggers (`IN_1` / `IN_2`):** Connect external voltage sources to these pins (sharing the terminal `GND`). These are intended for smart system triggers and, in future firmware updates, for waking the ESP32 up from deep sleep. 
+
+---
+
+## Firmware Flashing & Quick Start
+
+To get your board online and communicating with your van's network, connect the module to your computer via USB-C and use the web flasher below.
+
+<esp-web-install-button manifest="https://raw.githubusercontent.com/connectedvan/YOUR-FIRMWARE-REPO/main/manifest.json">
+  <button slot="activate" className="button button--primary">Connect & Flash Board</button>
+</esp-web-install-button>
+
+<br />
+
+### Network Setup & Home Assistant Pairing
+
+Once you have successfully flashed the firmware to the board via USB, follow these steps to get it onto your van's network:
+1. **Connect to the Captive Portal:**
+   * Power on the module.
+   * Open your phone or laptop's Wi-Fi settings and look for a network named `CVan Autoterm Heater`.
+   * Connect to this network. A captive portal page should automatically pop up. (If it doesn't, navigate to `http://192.168.4.1` in your browser).
+2. **Enter Wi-Fi Credentials:**
+   * Select your van's Wi-Fi network from the list and enter the password. Click Save.
+   * The board will reboot and connect to your local network.
+3. **Add to Home Assistant:**
+   * Open your Home Assistant dashboard and navigate to **Settings > Devices & Services**.
+   * Home Assistant should automatically discover the new ESPHome device. Click **Configure**.
+   * If it is not automatically discovered, click **Add Integration**, search for "ESPHome", and enter the IP address of the board.
+   * The Autoterm Heater, along with the optional Button, LED, and Input sensors, will now be available to use in your dashboards and automations!
