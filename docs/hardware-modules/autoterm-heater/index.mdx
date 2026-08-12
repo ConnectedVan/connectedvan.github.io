@@ -50,7 +50,7 @@ Provides integration for custom physical interfaces. These pins have no hardcode
 
 | Pin Name | Function | Voltage / Limit | Description |
 | :--- | :--- | :--- | :--- |
-| **BTN** | Physical Button | 5V Logic (<5mA) | Input for a momentary push button (Wire between `BTN` and `+5V`). |
+| **BTN** | Physical Button | 5V Logic (&lt;5mA) | Input for a momentary push button (Wire between `BTN` and `+5V`). |
 | **+5V** | Accessory Power | 5V DC (~1A+) | Output power to supply the external button and/or LED. |
 | **LED** | Switched Ground | 0V Active (~1A+) | MOSFET switched ground to drive an LED. (Wire LED between `+5V` and `LED` using a proper resistor). |
 
@@ -61,8 +61,8 @@ Used for auxiliary power and reading external triggers from your broader smart s
 | :--- | :--- | :--- | :--- |
 | **V_IN** | External Power In | 10V - 30V DC (500mA)| Alternative power source for the ESP32 logic side. |
 | **GND** | External Ground | 0V | Ground for the external power source and digital inputs. |
-| **IN_1** | Digital Input 1 | 5V - 30V DC (<10mA) | Opto-isolated input for smart system triggers or future deep sleep waking. |
-| **IN_2** | Digital Input 2 | 5V - 30V DC (<10mA) | Opto-isolated input for smart system triggers. |
+| **IN_1** | Digital Input 1 | 5V - 30V DC (&lt;10mA) | Opto-isolated input for smart system triggers or future deep sleep waking. |
+| **IN_2** | Digital Input 2 | 5V - 30V DC (&lt;10mA) | Opto-isolated input for smart system triggers. |
 
 ---
 
