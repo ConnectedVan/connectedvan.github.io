@@ -35,8 +35,8 @@ The total length of a frame is **N + 7 bytes**, where N is the Payload Length.
 | **3** | **Command ID (High)** | 1 Byte | Fixed: `0x00`<br/>High byte of the command identifier. In all observed traffic, this is `0x00`. |
 | **4** | **Command ID (Low)** | 1 Byte | The specific command task identifier (see Section 4). |
 | **5 ...** | **Payload** | *N* Bytes | Variable length data (defined by Byte 2).<br/>Contains arguments for commands or sensor data in responses. |
-| **Last - 1** | **CRC (Low)** | 1 Byte | CRC-16 Modbus (Low Byte) |
-| **Last** | **CRC (High)** | 1 Byte | CRC-16 Modbus (High Byte) |
+| **Last - 1** | **CRC (High)** | 1 Byte | CRC-16 Modbus (High Byte) |
+| **Last** | **CRC (Low)** | 1 Byte | CRC-16 Modbus (Low Byte) |
 
 
 ## 3. Field Definitions
@@ -85,7 +85,7 @@ The total length of a frame is **N + 7 bytes**, where N is the Payload Length.
 ### Byte N+1, N+2: Checksum (CRC-16)
 * **Algorithm:** CRC-16 Modbus
 * **Length:** 2 Bytes
-* **Byte Order:** Little Endian (Low Byte first, High Byte second).
+* **Byte Order:** Big Endian (High Byte first, Low Byte second).
 * **Parameters:**
     * **Polynomial:** `0x8005` (x¹⁶ + x¹⁵ + x² + 1)
     * **Initial Value:** `0xFFFF`

@@ -39,8 +39,8 @@ title: Real-World Message Captures
 | **`T+0s`** | **H » C** | `AA 04 06 00 02 00 78 02 0F 00 01 FA 3C` | **`0x02`**: Settings Report | Heater confirms: 120m limit (`00 78`), Mode 2, Target 15°C (`0F`). |
 | **`T+1s`** | **C » H** | `AA 03 00 00 0F 58 7C` | **`0x0F`**: Status Request | Controller asks for live sensor telemetry. |
 | **`T+1s`** | **H » C** | `AA 04 0A 00 0F 00 01 00 15 7F 00 83 01 2E 00 60 60` | **`0x0F`**: Status Report | Heater confirms it is in Standby (`00 01`), Int Temp 21°C (`15`), 13.1V (`00 83`). |
-| **`T+2s`** | **C » H** | `AA 03 01 00 11 12 B2 51` | **`0x11`**: Thermostat Broadcast | Controller broadcasts room temp of 18°C (`12` Hex). |
-| **`T+2s`** | **H » C** | `AA 04 01 00 11 12 72 E4` | **`0x11`**: Thermostat Confirm | Heater echoes the `12` payload, acknowledging the temperature is 18°C. |
+| **`T+2s`** | **C » H** | `AA 03 01 00 11 12 B0 D1` | **`0x11`**: Thermostat Broadcast | Controller broadcasts room temp of 18°C (`12` Hex). |
+| **`T+2s`** | **H » C** | `AA 04 01 00 11 12 70 64` | **`0x11`**: Thermostat Confirm | Heater echoes the `12` payload, acknowledging the temperature is 18°C. |
 | **`T+3s`** | **C » H** | `AA 03 00 00 02 9D BD` | **`0x02`**: Settings Request | Controller checks settings again. |
 | **`T+3s`** | **H » C** | `AA 04 06 00 02 00 78 02 0F 00 01 FA 3C` | **`0x02`**: Settings Report | Heater replies with identical settings data. |
 | **`T+4s`** | **C » H** | `AA 03 00 00 0F 58 7C` | **`0x0F`**: Status Request | Controller checks telemetry again. |
