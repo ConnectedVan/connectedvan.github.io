@@ -1,0 +1,359 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-hardware-modules/autoterm-heater/autoterm-protocol/autoterm-protocol-basics" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.1"><title data-rh=true>Serial Protocol Basics | ConnectedVan</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:image content=https://connectedvan.github.io/img/docusaurus-social-card.jpg /><meta data-rh=true name=twitter:image content=https://connectedvan.github.io/img/docusaurus-social-card.jpg /><meta data-rh=true property=og:url content=https://connectedvan.github.io/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-protocol-basics /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="Serial Protocol Basics | ConnectedVan"/><meta data-rh=true name=description content="1. Physical Layer"/><meta data-rh=true property=og:description content="1. Physical Layer"/><link data-rh=true rel=icon href=/img/favicon.ico /><link data-rh=true rel=canonical href=https://connectedvan.github.io/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-protocol-basics /><link data-rh=true rel=alternate href=https://connectedvan.github.io/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-protocol-basics hreflang=en /><link data-rh=true rel=alternate href=https://connectedvan.github.io/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-protocol-basics hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://connectedvan.github.io/docs/category/hardware-modules","name":"Hardware Modules","position":1},{"@type":"ListItem","item":"https://connectedvan.github.io/docs/hardware-modules/autoterm-heater/","name":"Autoterm Heater Module","position":2},{"@type":"ListItem","item":"https://connectedvan.github.io/docs/category/autoterm-protocol","name":"Autoterm Protocol","position":3},{"@type":"ListItem","item":"https://connectedvan.github.io/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-protocol-basics","name":"Serial Protocol Basics","position":4}]}</script><script src=https://unpkg.com/esp-web-tools@10/dist/web/install-button.js type=module></script><link rel=stylesheet href=/assets/css/styles.3feb8de2.css /><script src=/assets/js/runtime~main.bcd50b00.js defer></script><script src=/assets/js/main.ef9827c4.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme-da8")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/img/logo.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/><div class=navbar__logo><img src=/img/logo.svg alt="ConnectedVan Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"/><img src=/img/logo.svg alt="ConnectedVan Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"/></div><b class="navbar__title text--truncate">ConnectedVan</b></a><div class="navbar__item dropdown dropdown--hoverable"><a href=# aria-haspopup=true aria-expanded=false role=button class=navbar__link>Documentation</a><ul class=dropdown__menu><li><a aria-current=page class="dropdown__link dropdown__link--active" href=/docs>Ecosystem Overview</a><li><a class=dropdown__link href=/docs/category/hardware-modules>Hardware Modules</a></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/connectedvan target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type=button disabled title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill=currentColor d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill=currentColor d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill=currentColor d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"/></svg></button></div><div class=navbarSearchContainer_Bca1></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class=sidebarViewport_aRkj><div class=sidebar_njMd><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/docs><span title="The ConnectedVan Ecosystem" class=linkLabel_WmDU>The ConnectedVan Ecosystem</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href=/docs/category/hardware-modules><span title="Hardware Modules" class=categoryLinkLabel_W154>Hardware Modules</span></a><button aria-label="Collapse sidebar category 'Hardware Modules'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" tabindex=0 href=/docs/hardware-modules/autoterm-heater><span title="Autoterm Heater Module" class=categoryLinkLabel_W154>Autoterm Heater Module</span></a><button aria-label="Collapse sidebar category 'Autoterm Heater Module'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" tabindex=0 href=/docs/category/autoterm-protocol><span title="Autoterm Protocol" class=categoryLinkLabel_W154>Autoterm Protocol</span></a><button aria-label="Collapse sidebar category 'Autoterm Protocol'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-protocol-basics><span title="Serial Protocol Basics" class=linkLabel_WmDU>Serial Protocol Basics</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class=menu__link tabindex=0 href=/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-initialization><span title="Controller Initialization" class=linkLabel_WmDU>Controller Initialization</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-4 menu__list-item"><a class=menu__link tabindex=0 href=/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-message-captures><span title="Real-World Message Captures" class=linkLabel_WmDU>Real-World Message Captures</span></a></ul></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/docs/hardware-modules/battery-shunt><span title="Battery Shunt Module" class=linkLabel_WmDU>Battery Shunt Module</span></a></ul></ul></nav></div></div></aside><main class=docMainContainer_TBSr><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_VOVn"><div class=docItemContainer_Djhp><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_YNFT><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/docs/category/hardware-modules><span>Hardware Modules</span></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/docs/hardware-modules/autoterm-heater><span>Autoterm Heater Module</span></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/docs/category/autoterm-protocol><span>Autoterm Protocol</span></a><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>Serial Protocol Basics</span></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Autoterm Serial Communication Protocol</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=1-physical-layer>1. Physical Layer<a href=#1-physical-layer class=hash-link aria-label="Direct link to 1. Physical Layer" title="Direct link to 1. Physical Layer" translate=no>​</a></h2>
+<p>The physical connection between the Control Panel and the Heater Unit is a standard UART interface.</p>
+<ul>
+<li class=""><strong>Interface:</strong> UART (Universal Asynchronous Receiver-Transmitter)</li>
+<li class=""><strong>Voltage Level:</strong> 5V TTL (Logic High = 5V, Logic Low = 0V)<!-- -->
+<ul>
+<li class=""><em>Note: A Logic Level Shifter is required when connecting to 3.3V microcontrollers (ESP32, Raspberry Pi).</em></li>
+</ul>
+</li>
+<li class=""><strong>Baud Rate:</strong> Fixed by the Heater Unit (communicates on only one specific baud rate).<!-- -->
+<ul>
+<li class=""><strong>1200 baud</strong></li>
+<li class=""><strong>2400 baud</strong></li>
+<li class=""><strong>9600 baud</strong></li>
+<li class=""><em>Controller Autobaud Behavior:</em> Upon power-up, the control panel does not know the heater's baud rate. It attempts to establish a connection by sequentially transmitting at multiple baud rates until it receives a valid reply from the heater and locks in.</li>
+</ul>
+</li>
+<li class=""><strong>Data Bits:</strong> 8</li>
+<li class=""><strong>Parity:</strong> None (N)</li>
+<li class=""><strong>Stop Bits:</strong> 1</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=2-message-frame-structure>2. Message Frame Structure<a href=#2-message-frame-structure class=hash-link aria-label="Direct link to 2. Message Frame Structure" title="Direct link to 2. Message Frame Structure" translate=no>​</a></h2>
+<p>Communication is packet-based. Every message, regardless of direction (Controller → Heater or Heater → Controller), follows this fixed byte structure.</p>
+<p>The total length of a frame is <strong>N + 7 bytes</strong>, where N is the Payload Length.</p>
+<table><thead><tr><th style=text-align:left>Byte Index<th style=text-align:left>Field Name<th style=text-align:left>Length<th style=text-align:left>Description<tbody><tr><td style=text-align:left><strong>0</strong><td style=text-align:left><strong>Sync/Preamble</strong><td style=text-align:left>1 Byte<td style=text-align:left>Fixed: <code>0xAA</code><br/>Indicates the start of a new frame.<tr><td style=text-align:left><strong>1</strong><td style=text-align:left><strong>Device Identifier</strong><td style=text-align:left>1 Byte<td style=text-align:left>Identifies the device sending the message (see Section 3).<tr><td style=text-align:left><strong>2</strong><td style=text-align:left><strong>Payload Length</strong><td style=text-align:left>1 Byte<td style=text-align:left>The number of bytes in the <strong>Payload</strong> field (Index 5).<br/>If <code>0x00</code>, the message contains no data payload.<tr><td style=text-align:left><strong>3</strong><td style=text-align:left><strong>Command ID (High)</strong><td style=text-align:left>1 Byte<td style=text-align:left>Fixed: <code>0x00</code><br/>High byte of the command identifier. In all observed traffic, this is <code>0x00</code>.<tr><td style=text-align:left><strong>4</strong><td style=text-align:left><strong>Command ID (Low)</strong><td style=text-align:left>1 Byte<td style=text-align:left>The specific command task identifier (see Section 4).<tr><td style=text-align:left><strong>5 ...</strong><td style=text-align:left><strong>Payload</strong><td style=text-align:left><em>N</em> Bytes<td style=text-align:left>Variable length data (defined by Byte 2).<br/>Contains arguments for commands or sensor data in responses.<tr><td style=text-align:left><strong>Last - 1</strong><td style=text-align:left><strong>CRC (High)</strong><td style=text-align:left>1 Byte<td style=text-align:left>CRC-16 Modbus (High Byte)<tr><td style=text-align:left><strong>Last</strong><td style=text-align:left><strong>CRC (Low)</strong><td style=text-align:left>1 Byte<td style=text-align:left>CRC-16 Modbus (Low Byte)</table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=3-field-definitions>3. Field Definitions<a href=#3-field-definitions class=hash-link aria-label="Direct link to 3. Field Definitions" title="Direct link to 3. Field Definitions" translate=no>​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=byte-0-syncpreamble>Byte 0: Sync/Preamble<a href=#byte-0-syncpreamble class=hash-link aria-label="Direct link to Byte 0: Sync/Preamble" title="Direct link to Byte 0: Sync/Preamble" translate=no>​</a></h3>
+<ul>
+<li class=""><strong>Description:</strong> The synchronization byte that marks the beginning of every frame.</li>
+<li class=""><strong>Value:</strong> <code>0xAA</code> (Fixed)</li>
+<li class=""><strong>Function:</strong> It is used by the receiver (Heater or Controller) to detect the start of a valid data packet in the serial stream.</li>
+<li class=""><em>Note: Receivers should flush their buffer and wait for <code>0xAA</code> if a CRC error or timeout occurs.</em></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=byte-1-device-identifier>Byte 1: Device Identifier<a href=#byte-1-device-identifier class=hash-link aria-label="Direct link to Byte 1: Device Identifier" title="Direct link to Byte 1: Device Identifier" translate=no>​</a></h3>
+<ul>
+<li class=""><strong>Description:</strong> Identifies the type of device that <em>originated</em> the message.</li>
+<li class=""><strong>Values:</strong>
+<ul>
+<li class=""><code>0x00</code>: <strong>Boot / Init</strong> – Temporary ID used by the heater during initialization/handshake immediately after power-up.</li>
+<li class=""><code>0x02</code>: <strong>Diagnostic Messages</strong> – Used by either the Diagnostic Tool (PC software/USB adapter) or the Heater Unit itself. Both devices transmit special diagnostic messages using this ID.</li>
+<li class=""><code>0x03</code>: <strong>Controller</strong> – The Control Panel (PU-5, PU-27) or custom master device.</li>
+<li class=""><code>0x04</code>: <strong>Heater</strong> – The Heater Unit (ECU).</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=byte-2-payload-length>Byte 2: Payload Length<a href=#byte-2-payload-length class=hash-link aria-label="Direct link to Byte 2: Payload Length" title="Direct link to Byte 2: Payload Length" translate=no>​</a></h3>
+<ul>
+<li class=""><strong>Description:</strong> Defines the number of bytes contained <em>strictly</em> in the <strong>Payload</strong> section (starting at Byte 5).</li>
+<li class=""><strong>Range:</strong> <code>0x00</code> to <code>0xFF</code> (0–255)</li>
+<li class=""><strong>Usage:</strong>
+<ul>
+<li class="">If <code>0x00</code>: The message contains only the Header (5 bytes) and CRC (2 bytes). This is common for simple commands like <strong>Stop</strong> (<code>0x03</code>) or <strong>Status Request</strong> (<code>0x0F</code>).</li>
+<li class="">If <code>> 0x00</code>: The receiver must read this many additional bytes before expecting the CRC.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=byte-3-command-id-high>Byte 3: Command ID (High)<a href=#byte-3-command-id-high class=hash-link aria-label="Direct link to Byte 3: Command ID (High)" title="Direct link to Byte 3: Command ID (High)" translate=no>​</a></h3>
+<ul>
+<li class=""><strong>Description:</strong> The Most Significant Byte (MSB) of the 16-bit Command Identifier.</li>
+<li class=""><strong>Value:</strong> <code>0x00</code> (Fixed/Reserved)</li>
+<li class=""><strong>Function:</strong> In all known Autoterm/Planar implementations (Air 2D/4D, Flow 5/14, Binar), this byte is <strong>always</strong> <code>0x00</code>. It acts as padding to align the protocol to 16-bit architecture or allow for future expansion of command IDs > 255.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=byte-4-command-id-low>Byte 4: Command ID (Low)<a href=#byte-4-command-id-low class=hash-link aria-label="Direct link to Byte 4: Command ID (Low)" title="Direct link to Byte 4: Command ID (Low)" translate=no>​</a></h3>
+<ul>
+<li class=""><strong>Description:</strong> The specific Task Identifier (LSB).</li>
+<li class=""><strong>Common Values:</strong>
+<ul>
+<li class=""><code>0x01</code>: <strong>Start</strong> – Triggers ignition sequence.</li>
+<li class=""><code>0x02</code>: <strong>Settings</strong> – Updates configuration or requests current config.</li>
+<li class=""><code>0x03</code>: <strong>Stop</strong> – Initiates shutdown and purge sequence.</li>
+<li class=""><code>0x0F</code>: <strong>Status</strong> – Standard query for sensor data.</li>
+<li class=""><code>0x11</code>: <strong>Controller Temp</strong> – Exchanges ambient temperature measured by the Controller.</li>
+<li class=""><em>Note: For other values see Section 4</em></li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=byte-5--n-payload>Byte 5 ... N: Payload<a href=#byte-5--n-payload class=hash-link aria-label="Direct link to Byte 5 ... N: Payload" title="Direct link to Byte 5 ... N: Payload" translate=no>​</a></h3>
+<ul>
+<li class=""><strong>Description:</strong> The data arguments for the command.</li>
+<li class=""><strong>Length:</strong> Variable (defined by Byte 2)</li>
+<li class=""><em>Note: See the "Command IDs & Command Reference" section for specific byte maps per Command ID.</em></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=byte-n1-n2-checksum-crc-16>Byte N+1, N+2: Checksum (CRC-16)<a href=#byte-n1-n2-checksum-crc-16 class=hash-link aria-label="Direct link to Byte N+1, N+2: Checksum (CRC-16)" title="Direct link to Byte N+1, N+2: Checksum (CRC-16)" translate=no>​</a></h3>
+<ul>
+<li class=""><strong>Algorithm:</strong> CRC-16 Modbus</li>
+<li class=""><strong>Length:</strong> 2 Bytes</li>
+<li class=""><strong>Byte Order:</strong> Big Endian (High Byte first, Low Byte second).</li>
+<li class=""><strong>Parameters:</strong>
+<ul>
+<li class=""><strong>Polynomial:</strong> <code>0x8005</code> (x¹⁶ + x¹⁵ + x² + 1)</li>
+<li class=""><strong>Initial Value:</strong> <code>0xFFFF</code></li>
+<li class=""><strong>XOR Out:</strong> <code>0x0000</code></li>
+<li class=""><strong>Reflect Input:</strong> True</li>
+<li class=""><strong>Reflect Output:</strong> True</li>
+</ul>
+</li>
+<li class=""><strong>Calculation Scope:</strong> The CRC is calculated over <strong>all</strong> preceding bytes in the frame (from <code>0xAA</code> at Byte 0 up to the last byte of the Payload).</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=4-command-ids--command-reference>4. Command IDs & Command Reference<a href=#4-command-ids--command-reference class=hash-link aria-label="Direct link to 4. Command IDs & Command Reference" title="Direct link to 4. Command IDs & Command Reference" translate=no>​</a></h2>
+<p>The <strong>Command ID</strong> (Byte 4) determines the function of the packet.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=quick-reference>Quick Reference<a href=#quick-reference class=hash-link aria-label="Direct link to Quick Reference" title="Direct link to Quick Reference" translate=no>​</a></h3>
+<table><thead><tr><th style=text-align:left>ID (Hex)<th style=text-align:left>Name<th style=text-align:left>Direction<th style=text-align:left>Payload Length<th style=text-align:left>Description<tbody><tr><td style=text-align:left><strong>0x01</strong><td style=text-align:left><strong>Start</strong><td style=text-align:left>Ctrl → Heater<td style=text-align:left>2 / 6 Bytes<td style=text-align:left>Start Heater (Short/Long format)<tr><td style=text-align:left><strong>0x02</strong><td style=text-align:left><strong>Settings</strong><td style=text-align:left>Ctrl ↔ Heater<td style=text-align:left>6 Bytes<td style=text-align:left>Update Config / Read Config<tr><td style=text-align:left><strong>0x03</strong><td style=text-align:left><strong>Stop</strong><td style=text-align:left>Ctrl → Heater<td style=text-align:left>0 Bytes<td style=text-align:left>Shutdown<tr><td style=text-align:left><strong>0x04</strong><td style=text-align:left><strong>Serial Number</strong><td style=text-align:left>Ctrl ↔ Heater<td style=text-align:left>0 / 5 Bytes<td style=text-align:left>Get Serial Number<tr><td style=text-align:left><strong>0x06</strong><td style=text-align:left><strong>SW Version</strong><td style=text-align:left>Ctrl ↔ Heater<td style=text-align:left>0 / 5 Bytes<td style=text-align:left>Get Firmware Version<tr><td style=text-align:left><strong>0x07</strong><td style=text-align:left><strong>Diag Mode</strong><td style=text-align:left>Ctrl → Heater<td style=text-align:left>1 Byte<td style=text-align:left>Enable Engineering Telemetry Stream<tr><td style=text-align:left><strong>0x08</strong><td style=text-align:left><strong>Set Fan Speed</strong><td style=text-align:left>Ctrl → Heater<td style=text-align:left>1 Byte<td style=text-align:left>Direct Fan Control (Hz)<tr><td style=text-align:left><strong>0x0B</strong><td style=text-align:left><strong>History</strong><td style=text-align:left>Ctrl ↔ Heater<td style=text-align:left>0 / 7 / 9 Bytes<td style=text-align:left>Get Run Hours & Error Log<tr><td style=text-align:left><strong>0x0D</strong><td style=text-align:left><strong>Unlock</strong><td style=text-align:left>Ctrl → Heater<td style=text-align:left>0 Bytes<td style=text-align:left>Clear Error 37 (Lockout)<tr><td style=text-align:left><strong>0x0F</strong><td style=text-align:left><strong>Status</strong><td style=text-align:left>Ctrl ↔ Heater<td style=text-align:left>0 / 10 / 19 Bytes<td style=text-align:left>Get Sensor Data<tr><td style=text-align:left><strong>0x11</strong><td style=text-align:left><strong>Controller Temp</strong><td style=text-align:left>Ctrl ↔ Heater<td style=text-align:left>1 Byte<td style=text-align:left>Broadcast Ambient Temp<tr><td style=text-align:left><strong>0x13</strong><td style=text-align:left><strong>Fuel Pump</strong><td style=text-align:left>Ctrl → Heater<td style=text-align:left>1 Byte<td style=text-align:left>Prime Pump (Hz)<tr><td style=text-align:left><strong>0x1C</strong><td style=text-align:left><strong>Handshake</strong><td style=text-align:left>Ctrl ↔ Heater<td style=text-align:left>0 Bytes<td style=text-align:left>Power-up Init<tr><td style=text-align:left><strong>0x23</strong><td style=text-align:left><strong>Ventilation</strong><td style=text-align:left>Ctrl → Heater<td style=text-align:left>4 Bytes<td style=text-align:left>Ventilation (Fan Only) Mode</table>
+<hr/>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=41-operational-control>4.1. Operational Control<a href=#41-operational-control class=hash-link aria-label="Direct link to 4.1. Operational Control" title="Direct link to 4.1. Operational Control" translate=no>​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x01--start><strong><code>0x01</code></strong> – Start<a href=#0x01--start class=hash-link aria-label="Direct link to 0x01--start" title="Direct link to 0x01--start" translate=no>​</a></h4>
+<p>Triggers the heater ignition sequence using the provided configuration parameters.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller → Heater</li>
+<li class=""><strong>Length:</strong> 6 Bytes (Optionally 2 Bytes)</li>
+<li class=""><strong>Packet Map:</strong> <code>[Time] [Time] [Mode] [Temp] [Vent] [Level]</code>
+<ul>
+<li class=""><strong>Time (Byte 0-1):</strong> Work Time in Minutes (e.g., <code>0x78</code> = 120 Minutes)</li>
+<li class=""><strong>Mode (Byte 2):</strong> Control Strategy<!-- -->
+<ul>
+<li class=""><code>1</code>: Temperature (Internal Sensor)</li>
+<li class=""><code>2</code>: Temperature (Controller Sensor – requires 0x11 messages)</li>
+<li class=""><code>3</code>: Temperature (External Sensor)</li>
+<li class=""><code>4</code>: Power Level Mode (Manual)</li>
+</ul>
+</li>
+<li class=""><strong>Temp (Byte 3):</strong> Target Temperature (°C) (<code>1</code>-<code>30</code>)</li>
+<li class=""><strong>Vent (Byte 4):</strong> Ventilation Mode<!-- -->
+<ul>
+<li class=""><code>0</code>: <strong>Off</strong> – Heater reduces heating power to minimum, <strong>without</strong> shutting off the combustion process</li>
+<li class=""><code>1</code>: <strong>On</strong> – Heater shuts down combustion at Target + 3°C, runs fan until Target - 3°C, then restarts</li>
+</ul>
+</li>
+<li class=""><strong>Level (Byte 5):</strong> Power Level (<code>0</code>-<code>9</code>) (Used if Mode = 4)<!-- -->
+<ul>
+<li class=""><em>Note:</em> If running in Temperature Modes (1, 2, or 3), the heater's internal PID will dynamically overwrite this byte in the 0x02 response payload to indicate the current heating effort it has autonomously selected.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=""><strong>Simple Start Packet Map:</strong> <code>[Time] [Time]</code>
+<ul>
+<li class=""><strong>Time (Byte 0-1):</strong> Work Time in Minutes (e.g., <code>0x78</code> = 120 Minutes)</li>
+<li class=""><em>Note: Heater returns the full configuration structure confirming the actual running state.</em></li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x02--settings><strong><code>0x02</code></strong> – Settings<a href=#0x02--settings class=hash-link aria-label="Direct link to 0x02--settings" title="Direct link to 0x02--settings" translate=no>​</a></h4>
+<p>Updates configuration without triggering ignition (if Standby), or updates parameters live (if Running). Also used to read current config.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller ↔ Heater</li>
+<li class=""><strong>Length:</strong> 6 Bytes</li>
+<li class=""><strong>Packet Map:</strong> <code>[Time] [Time] [Mode] [Temp] [Vent] [Level]</code>
+<ul>
+<li class=""><em>Note: Identical structure to <strong>Start (Full)</strong></em></li>
+<li class=""><strong>Time (Byte 0-1):</strong> Work Time in Minutes (e.g., <code>0x78</code> = 120 Minutes)</li>
+<li class=""><strong>Mode (Byte 2):</strong> Control Strategy<!-- -->
+<ul>
+<li class=""><code>1</code>: Temperature (Internal Sensor)</li>
+<li class=""><code>2</code>: Temperature (Controller Sensor – requires 0x11 messages)</li>
+<li class=""><code>3</code>: Temperature (External Sensor)</li>
+<li class=""><code>4</code>: Power Level Mode (Manual)</li>
+</ul>
+</li>
+<li class=""><strong>Temp (Byte 3):</strong> Target Temperature (°C) (<code>1</code>-<code>30</code>)</li>
+<li class=""><strong>Vent (Byte 4):</strong> Ventilation Mode<!-- -->
+<ul>
+<li class=""><code>0</code>: <strong>Off</strong> – Heater reduces heating power to minimum, <strong>without</strong> shutting off the combustion process</li>
+<li class=""><code>1</code>: <strong>On</strong> – Heater shuts down combustion at Target + 3°C, runs fan until Target - 3°C, then restarts</li>
+</ul>
+</li>
+<li class=""><strong>Level (Byte 5):</strong> Power Level (<code>0</code>-<code>9</code>) (Used if Mode = 4)<!-- -->
+<ul>
+<li class=""><em>Note: If running in Temperature Modes (1, 2, or 3), the heater's internal PID will dynamically overwrite this byte in the 0x02 response payload to indicate the current heating effort it has autonomously selected.</em></li>
+</ul>
+</li>
+<li class=""><em>Note: When the heater is actively running in Ventilation Mode (State <code>03.23</code>), the heater's ECU synchronizes the ventilation parameters into this standard settings payload (Time, Level).</em></li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x03--stop><strong><code>0x03</code></strong> – Stop<a href=#0x03--stop class=hash-link aria-label="Direct link to 0x03--stop" title="Direct link to 0x03--stop" translate=no>​</a></h4>
+<p>Initiates the shutdown sequence. The heater will stop fuel metering, burn off remaining fuel, and purge the chamber (fan runs high).</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller → Heater</li>
+<li class=""><strong>Length:</strong> 0 Bytes</li>
+<li class=""><em>Note: Controller repeatedly pulses this command every 20 seconds until the heater safely reaches the Standby state.</em></li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x23--ventilation><strong><code>0x23</code></strong> – Ventilation<a href=#0x23--ventilation class=hash-link aria-label="Direct link to 0x23--ventilation" title="Direct link to 0x23--ventilation" translate=no>​</a></h4>
+<p>Activates "Fan Only" mode. Also used by the controller to update the fan level on the fly while ventilation is active.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller → Heater</li>
+<li class=""><strong>Length:</strong> 4 Bytes</li>
+<li class=""><strong>Packet Map:</strong> <code>[Time] [Time] [Level] [Unknown]</code>
+<ul>
+<li class=""><strong>Time (Byte 0-1):</strong> Work Time in Minutes (e.g., <code>0x78</code> = 120 Minutes) <strong>!NOT VERIFIED!</strong></li>
+<li class=""><strong>Level (Byte 2):</strong> Fan Speed Level (<code>0</code>-<code>9</code>)</li>
+<li class=""><strong>Fan-Actual (Byte 3):</strong> Indicates the current fan speed, sent as <code>0x00</code> by the controller</li>
+</ul>
+</li>
+<li class=""><em>Note: The heater synchronizes Ventilation mode with the standard Settings memory. When <code>0x23</code> is active, you can simply poll the standard <code>0x02</code> Settings command to read the active Ventilation Timer (Bytes 0-1) and Target Fan Level (Byte 5)</em></li>
+</ul>
+<hr/>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=42-status--telemetry>4.2. Status & Telemetry<a href=#42-status--telemetry class=hash-link aria-label="Direct link to 4.2. Status & Telemetry" title="Direct link to 4.2. Status & Telemetry" translate=no>​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x0f--status><strong><code>0x0F</code></strong> – Status<a href=#0x0f--status class=hash-link aria-label="Direct link to 0x0f--status" title="Direct link to 0x0f--status" translate=no>​</a></h4>
+<p>The primary poll command. Controller asks for status, Heater replies with sensor data.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller ↔ Heater</li>
+<li class=""><strong>Length:</strong> 19 Bytes (Response, optionally 10 Bytes)</li>
+</ul>
+<p><strong>Response Payload Map (0x0F Response):</strong></p>
+<table><thead><tr><th style=text-align:left>Offset<th style=text-align:left>Description<th style=text-align:left>Data Type<th style=text-align:left>Notes (Air vs. Liquid)<tbody><tr><td style=text-align:left><strong>0-1</strong><td style=text-align:left><strong>Status Code</strong><td style=text-align:left><code>uint16</code><td style=text-align:left>Major.Minor State (e.g., <code>0x0300</code> = Running).<tr><td style=text-align:left><strong>2</strong><td style=text-align:left><strong>Error Code</strong><td style=text-align:left><code>uint8</code><td style=text-align:left><code>0x00</code> = No Error.<tr><td style=text-align:left><strong>3</strong><td style=text-align:left><strong>Temp 1</strong><td style=text-align:left><code>int8</code><td style=text-align:left><strong>Air:</strong> Intake Temp.<br/><strong>Liquid:</strong> Coolant Temp (°C).<tr><td style=text-align:left><strong>4</strong><td style=text-align:left><strong>Temp 2</strong><td style=text-align:left><code>int8</code><td style=text-align:left><strong>Air:</strong> Ext. Sensor / Output Temp. <em>(Returns <code>0x7F</code> / 127°C if disconnected)</em>.<br/><strong>Liquid:</strong> Intake Air Temp.<tr><td style=text-align:left><strong>5-6</strong><td style=text-align:left><strong>Voltage</strong><td style=text-align:left><code>uint16</code><td style=text-align:left>Supply Voltage (V * 10). Big Endian.<tr><td style=text-align:left><strong>7-8</strong><td style=text-align:left><strong>Flame Temp</strong><td style=text-align:left><code>uint16</code><td style=text-align:left>Heat Exchanger Temp (Kelvin). Big Endian.<tr><td style=text-align:left><strong>9</strong><td style=text-align:left><strong>Unknown</strong><td style=text-align:left><code>uint8</code><td style=text-align:left><em>(Undocumented)</em><tr><td style=text-align:left><strong>11</strong><td style=text-align:left><strong>Fan Setpoint</strong><td style=text-align:left><code>uint8</code><td style=text-align:left><strong>Air:</strong> Fan RPM (Hz).<br/><strong>Liquid:</strong> Blower RPM (Hz).<tr><td style=text-align:left><strong>12</strong><td style=text-align:left><strong>Fan Actual</strong><td style=text-align:left><code>uint8</code><td style=text-align:left><strong>Air:</strong> Fan RPM (Hz).<br/><strong>Liquid:</strong> Blower RPM (Hz).<tr><td style=text-align:left><strong>14</strong><td style=text-align:left><strong>Fuel Pump</strong><td style=text-align:left><code>uint8</code><td style=text-align:left>Pump Frequency (Hz * 10).<tr><td style=text-align:left><strong>18</strong><td style=text-align:left><strong>Water Pump</strong><td style=text-align:left><code>uint8</code><td style=text-align:left><strong>Liquid Only:</strong> <code>0</code>=Off, <code>1</code>=On.<br/><em>(Unused on Air Heaters)</em>.</table>
+<p><em>Note: Some heater models or firmware versions may return a truncated <strong>10-Byte Payload</strong>. This contains the first 10 bytes of the standard structure below (Offsets 0–9).</em></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x11--controller-temp><strong><code>0x11</code></strong> – Controller Temp<a href=#0x11--controller-temp class=hash-link aria-label="Direct link to 0x11--controller-temp" title="Direct link to 0x11--controller-temp" translate=no>​</a></h4>
+<p>Is used to broadcast the ambient temperature measured by the external control panel's sensor to the heater. This allows the heater to regulate its output based on the cabin temperature.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller ↔ Heater</li>
+<li class=""><strong>Length:</strong> 1 Byte</li>
+<li class=""><strong>Packet Map:</strong> <code>[Temp]</code>
+<ul>
+<li class=""><strong>Temp (Byte 0):</strong> Controller Temperature (<code>int8</code> °C)</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=43-identification--handshake>4.3. Identification & Handshake<a href=#43-identification--handshake class=hash-link aria-label="Direct link to 4.3. Identification & Handshake" title="Direct link to 4.3. Identification & Handshake" translate=no>​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x04--serial-number><strong><code>0x04</code></strong> – Serial Number<a href=#0x04--serial-number class=hash-link aria-label="Direct link to 0x04--serial-number" title="Direct link to 0x04--serial-number" translate=no>​</a></h4>
+<p>Retrieves the heater's unique 5-byte hardware identifier, composed of a 2-byte model/year prefix and a 3-byte unique serial number.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller ↔ Heater</li>
+<li class=""><strong>Length:</strong> 5 Bytes (Response)</li>
+<li class=""><strong>Packet Map:</strong> <code>[Prefix] [Serial Number]</code>
+<ul>
+<li class=""><strong>Prefix (Bytes 0-1):</strong> Model/Year ID (<code>uint16</code>, Big Endian)</li>
+<li class=""><strong>Serial (Bytes 2-4):</strong> Unique ID (<code>uint24</code>, Big Endian)</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x06--sw-version><strong><code>0x06</code></strong> – SW Version<a href=#0x06--sw-version class=hash-link aria-label="Direct link to 0x06--sw-version" title="Direct link to 0x06--sw-version" translate=no>​</a></h4>
+<p>Requests the firmware and bootloader version information from the heater's ECU to identify the installed software revision.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller ↔ Heater</li>
+<li class=""><strong>Length:</strong> 5 Bytes (Response)</li>
+<li class=""><strong>Packet Map:</strong> <code>[Major] [Minor] [Patch] [Build] [Bootloader]</code>
+<ul>
+<li class=""><strong>Major/Minor/Patch:</strong> Firmware Version (e.g., 1.2.3)</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x1c--handshake><strong><code>0x1C</code></strong> – Handshake<a href=#0x1c--handshake class=hash-link aria-label="Direct link to 0x1c--handshake" title="Direct link to 0x1c--handshake" translate=no>​</a></h4>
+<p>Initiates the communication session between the controller and the heater immediately after power-up, serving as a "wake-up" signal to verify device presence. Heater may reply with Device ID <code>0x00</code>.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller ↔ Heater</li>
+<li class=""><strong>Length:</strong> 0 Bytes</li>
+</ul>
+<hr/>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=44-diagnostics--testing>4.4. Diagnostics & Testing<a href=#44-diagnostics--testing class=hash-link aria-label="Direct link to 4.4. Diagnostics & Testing" title="Direct link to 4.4. Diagnostics & Testing" translate=no>​</a></h3>
+<p><em>Typically used by factory tools.</em></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x07--toggle-telemetry-stream><strong><code>0x07</code></strong> – Toggle Telemetry Stream<a href=#0x07--toggle-telemetry-stream class=hash-link aria-label="Direct link to 0x07--toggle-telemetry-stream" title="Direct link to 0x07--toggle-telemetry-stream" translate=no>​</a></h4>
+<p>Enable or disable the high-frequency telemetry broadcast from the heater, typically used by factory calibration tools or PC software.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller → Heater</li>
+<li class=""><strong>Length:</strong> 1 Byte</li>
+<li class=""><strong>Packet Map Map:</strong> <code>[State]</code>
+<ul>
+<li class=""><strong>State (Byte 0):</strong> <code>0</code> = Disable, <code>1</code> = Enable</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=high-frequency-telemetry-stream><strong>High-Frequency Telemetry Stream</strong><a href=#high-frequency-telemetry-stream class=hash-link aria-label="Direct link to high-frequency-telemetry-stream" title="Direct link to high-frequency-telemetry-stream" translate=no>​</a></h4>
+<p>Once enabled via Command <code>0x07</code>, the heater immediately begins broadcasting a massive engineering payload every single second.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Heater → Controller</li>
+<li class=""><strong>Device ID:</strong> <code>0x02</code></li>
+<li class=""><strong>Command ID:</strong> <code>0x01</code></li>
+<li class=""><strong>Payload Length:</strong> 72 Bytes (<code>0x48</code>)</li>
+</ul>
+<p><strong>Telemetry Payload Byte Map (72 Bytes):</strong></p>
+<table><thead><tr><th style=text-align:left>Offset<th style=text-align:left>Description<th style=text-align:left>Data Type<th style=text-align:left>Formula / Notes<tbody><tr><td style=text-align:left><strong>0</strong><td style=text-align:left>Major State (S1)<td style=text-align:left><code>uint8</code><td style=text-align:left>e.g., <code>03</code> = Heating<tr><td style=text-align:left><strong>1</strong><td style=text-align:left>Minor State (S2)<td style=text-align:left><code>uint8</code><td style=text-align:left>e.g., <code>00</code> = Standard run<tr><td style=text-align:left><strong>2-4</strong><td style=text-align:left>Total Cycle Time<td style=text-align:left><code>uint24</code> (Big Endian)<td style=text-align:left>Total seconds since Start command<tr><td style=text-align:left><strong>5-7</strong><td style=text-align:left>Major State Time<td style=text-align:left><code>uint24</code> (Big Endian)<td style=text-align:left>Seconds spent in the current Major (S1) state<tr><td style=text-align:left><strong>8-10</strong><td style=text-align:left>Minor State Time<td style=text-align:left><code>uint24</code> (Big Endian)<td style=text-align:left>Seconds spent in the current Minor (S2) state<tr><td style=text-align:left><strong>11</strong><td style=text-align:left>Fan Target<td style=text-align:left><code>uint8</code><td style=text-align:left>Target Frequency in Hz (<code>Value * 60 = RPM</code>)<tr><td style=text-align:left><strong>12</strong><td style=text-align:left>Fan Actual<td style=text-align:left><code>uint8</code><td style=text-align:left>Actual Frequency in Hz (<code>Value * 60 = RPM</code>)<tr><td style=text-align:left><strong>13-14</strong><td style=text-align:left>Glow Plug Target<td style=text-align:left><code>uint16</code> (Big Endian)<td style=text-align:left>PWM Duty Cycle (<code>0x0000</code> = Full Relay Power / DC mode)<tr><td style=text-align:left><strong>15-16</strong><td style=text-align:left>Glow Plug Actual<td style=text-align:left><code>uint16</code> (Big Endian)<td style=text-align:left>PWM Duty Cycle<tr><td style=text-align:left><strong>17</strong><td style=text-align:left>Fuel Pump Freq<td style=text-align:left><code>uint8</code><td style=text-align:left><code>Value / 100.0 = Hz</code> (Max <code>0xC8</code> = 2.00 Hz)<tr><td style=text-align:left><strong>18-19</strong><td style=text-align:left>Chamber Temp<td style=text-align:left><code>uint16</code> (Big Endian)<td style=text-align:left>Kelvin (<code>Value - 273.15 = °C</code>)<tr><td style=text-align:left><strong>20-21</strong><td style=text-align:left>Flame Temp<td style=text-align:left><code>uint16</code> (Big Endian)<td style=text-align:left>Kelvin (<code>Value - 273.15 = °C</code>)<tr><td style=text-align:left><strong>22-23</strong><td style=text-align:left>Internal Flag / Diag<td style=text-align:left><code>uint16</code> (Big Endian)<td style=text-align:left>Internal cyclic diagnostic routine (peaks every 15s). Ignored by official PC software.<tr><td style=text-align:left><strong>24</strong><td style=text-align:left>External Sensor<td style=text-align:left><code>int8</code> (Signed)<td style=text-align:left>°C (<code>0x7F</code> / 127 = Disconnected)<tr><td style=text-align:left><strong>25</strong><td style=text-align:left>Board Temp<td style=text-align:left><code>int8</code> (Signed)<td style=text-align:left>ECU internal motherboard temperature in °C<tr><td style=text-align:left><strong>26-27</strong><td style=text-align:left>Supply Voltage<td style=text-align:left><code>uint16</code> (Big Endian)<td style=text-align:left><code>Value / 10.0 = Volts</code><tr><td style=text-align:left><strong>28</strong><td style=text-align:left>Fault Code<td style=text-align:left><code>uint8</code><td style=text-align:left><code>0x00</code> = No Error<tr><td style=text-align:left><strong>29-71</strong><td style=text-align:left>Raw ADC / Padding<td style=text-align:left><code>Mixed</code><td style=text-align:left>Array of raw microcontroller pin voltages and padding bytes used for internal factory diagnostics. Safe to ignore.</table>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x08--set-fan-speed><strong><code>0x08</code></strong> – Set Fan Speed<a href=#0x08--set-fan-speed class=hash-link aria-label="Direct link to 0x08--set-fan-speed" title="Direct link to 0x08--set-fan-speed" translate=no>​</a></h4>
+<p>Drive directly the intake fan at a specific speed (frequency), bypassing the heater's internal temperature regulation logic.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller → Heater</li>
+<li class=""><strong>Length:</strong> 1 Byte</li>
+<li class=""><strong>Packet Map:</strong> <code>[Speed]</code>
+<ul>
+<li class=""><strong>Speed (Byte 0):</strong> Target fan frequency (Hz) (<code>0x00</code> = Stop, <code>0x14</code> = Min, <code>0x64</code> = Max)</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x0b--history><strong><code>0x0B</code></strong> – History<a href=#0x0b--history class=hash-link aria-label="Direct link to 0x0b--history" title="Direct link to 0x0b--history" translate=no>​</a></h4>
+<p>Retrieves the heater's lifetime operational statistics, including total run hours, the number of start cycles, and the last three recorded error codes.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller ↔ Heater</li>
+<li class=""><strong>Length:</strong> 7 or 9 Bytes (Response)</li>
+<li class=""><strong>Packet Map:</strong> <code>[Time] [Starts] [Err 1] [Err 2] [Err 3] [Reserved]</code>
+<ul>
+<li class=""><strong>Time (Bytes 0-1):</strong> Total Run Time in Hours (<code>uint16</code>, Big Endian).</li>
+<li class=""><strong>Starts (Bytes 2-3):</strong> Total Start Cycles (<code>uint16</code>, Big Endian).</li>
+<li class=""><strong>Err 1-3 (Bytes 4-6):</strong> Most recent error codes.</li>
+<li class=""><strong>Reserved (Byte 7-8):</strong> Optional, present in 9-byte response</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x0d--unlock><strong><code>0x0D</code></strong> – Unlock<a href=#0x0d--unlock class=hash-link aria-label="Direct link to 0x0d--unlock" title="Direct link to 0x0d--unlock" translate=no>​</a></h4>
+<p>Clears the "Error 37" hard lockout state caused by three consecutive overheat or failed start attempts, resetting the heater to allow normal operation.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller → Heater</li>
+<li class=""><strong>Length:</strong> 0 Bytes</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id=0x13--fuel-pump><strong><code>0x13</code></strong> – Fuel Pump<a href=#0x13--fuel-pump class=hash-link aria-label="Direct link to 0x13--fuel-pump" title="Direct link to 0x13--fuel-pump" translate=no>​</a></h4>
+<p>Activates the fuel metering pump at a specified frequency to prime the fuel lines and bleed air from the system during installation or maintenance.</p>
+<ul>
+<li class=""><strong>Direction:</strong> Controller → Heater</li>
+<li class=""><strong>Length:</strong> 1 Byte</li>
+<li class=""><strong>Packet Map:</strong> <code>[Frequency]</code>
+<ul>
+<li class=""><strong>Frequency (Byte 0):</strong> Pump Rate in Hz (<code>0x01</code>–<code>0xFF</code>).</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=5-status-codes-bytes-0--1-of-status-response>5. Status Codes (Bytes 0 & 1 of Status Response)<a href=#5-status-codes-bytes-0--1-of-status-response class=hash-link aria-label="Direct link to 5. Status Codes (Bytes 0 & 1 of Status Response)" title="Direct link to 5. Status Codes (Bytes 0 & 1 of Status Response)" translate=no>​</a></h2>
+<p>The first two bytes of the Status Response (<code>0x0F</code>) form the Operational State.</p>
+<ul>
+<li class=""><strong>Byte 0:</strong> Major State (Mode)</li>
+<li class=""><strong>Byte 1:</strong> Minor State (Sub-process)</li>
+</ul>
+<table><thead><tr><th style=text-align:left>Hex<th style=text-align:left>State (Major.Minor)<th style=text-align:left>Description<tbody><tr><td style=text-align:left><strong>0x00 00</strong><td style=text-align:left>0.0<td style=text-align:left>Sleep / Off<tr><td style=text-align:left><strong>0x00 01</strong><td style=text-align:left>0.1<td style=text-align:left>Standby (Waiting for command)<tr><td style=text-align:left><strong>0x01 00</strong><td style=text-align:left>1.0<td style=text-align:left>Purge: Cooling Flame Sensor<tr><td style=text-align:left><strong>0x01 01</strong><td style=text-align:left>1.1<td style=text-align:left>Purge: Ventilating Combustion Chamber<tr><td style=text-align:left><strong>0x02 01</strong><td style=text-align:left>2.1<td style=text-align:left>Pre-Heat (Glow Plug On)<tr><td style=text-align:left><strong>0x02 02</strong><td style=text-align:left>2.2<td style=text-align:left>Ignition Sequence 1<tr><td style=text-align:left><strong>0x02 03</strong><td style=text-align:left>2.3<td style=text-align:left>Ignition Sequence 2<tr><td style=text-align:left><strong>0x02 04</strong><td style=text-align:left>2.4<td style=text-align:left>Ramp Up (Stabilizing Combustion)<tr><td style=text-align:left><strong>0x03 00</strong><td style=text-align:left>3.0<td style=text-align:left>Heating (Running – PID Active)<tr><td style=text-align:left><strong>0x03 23</strong><td style=text-align:left>3.35<td style=text-align:left>Ventilation Mode (Fan Only)<tr><td style=text-align:left><strong>0x03 04</strong><td style=text-align:left>3.4<td style=text-align:left>Cooling Down (Stopping)<tr><td style=text-align:left><strong>0x04 00</strong><td style=text-align:left>4.0<td style=text-align:left>Shutdown Complete</table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=6-error-codes-byte-2-of-status-response>6. Error Codes (Byte 2 of Status Response)<a href=#6-error-codes-byte-2-of-status-response class=hash-link aria-label="Direct link to 6. Error Codes (Byte 2 of Status Response)" title="Direct link to 6. Error Codes (Byte 2 of Status Response)" translate=no>​</a></h2>
+<p>These codes appear in <strong>Byte 2</strong> of the Status Response (<code>0x0F</code>) when a fault occurs.</p>
+<table><thead><tr><th style=text-align:left>Code (Dec)<th style=text-align:left>Code (Hex)<th style=text-align:left>Description<th style=text-align:left>Specific Notes (Air vs. Liquid)<tbody><tr><td style=text-align:left><strong>0</strong><td style=text-align:left><strong>0x00</strong><td style=text-align:left><strong>No Error</strong><td style=text-align:left>Normal Operation.<tr><td style=text-align:left><strong>1</strong><td style=text-align:left><strong>0x01</strong><td style=text-align:left><strong>Overheat</strong><td style=text-align:left><strong>Air:</strong> Heat Exchanger > 250°C (Check Intake/Outlet).<br/><strong>Liquid:</strong> Coolant > 102°C (Check Water Pump/Airlock).<tr><td style=text-align:left><strong>2</strong><td style=text-align:left><strong>0x02</strong><td style=text-align:left><strong>Potential Overheat</strong><td style=text-align:left>Measured temp > 55°C at shutdown (Purge failed to cool).<tr><td style=text-align:left><strong>5</strong><td style=text-align:left><strong>0x05</strong><td style=text-align:left><strong>Flame Sensor Fault</strong><td style=text-align:left>Sensor Open/Short circuit.<tr><td style=text-align:left><strong>6</strong><td style=text-align:left><strong>0x06</strong><td style=text-align:left><strong>Temperature Sensor Fault</strong><td style=text-align:left><strong>Air:</strong> Intake Air Sensor.<br/><strong>Liquid:</strong> Coolant Temp Sensor.<tr><td style=text-align:left><strong>9</strong><td style=text-align:left><strong>0x09</strong><td style=text-align:left><strong>Glow Plug Fault</strong><td style=text-align:left>Open/Short circuit or wrong resistance.<tr><td style=text-align:left><strong>10</strong><td style=text-align:left><strong>0x0A</strong><td style=text-align:left><strong>Motor RPM Fault</strong><td style=text-align:left>Fan/Blower motor not spinning or seized.<tr><td style=text-align:left><strong>11</strong><td style=text-align:left><strong>0x0B</strong><td style=text-align:left><strong>Air Temperature Fault</strong><td style=text-align:left><strong>Air:</strong> Intake sensor disconnected.<br/><strong>Liquid:</strong> <em>Unused</em>.<tr><td style=text-align:left><strong>12</strong><td style=text-align:left><strong>0x0C</strong><td style=text-align:left><strong>Over Voltage</strong><td style=text-align:left>> 30V (24V system) or > 16V (12V system).<tr><td style=text-align:left><strong>13</strong><td style=text-align:left><strong>0x0D</strong><td style=text-align:left><strong>No Start</strong><td style=text-align:left>Failed to ignite after 2 automatic attempts.<tr><td style=text-align:left><strong>14</strong><td style=text-align:left><strong>0x0E</strong><td style=text-align:left><strong>Water Pump Fault</strong><td style=text-align:left><strong>Liquid Only:</strong> Water pump Open/Short circuit.<tr><td style=text-align:left><strong>15</strong><td style=text-align:left><strong>0x0F</strong><td style=text-align:left><strong>Under Voltage</strong><td style=text-align:left>&lt; 20V (24V system) or &lt; 10V (12V system).<tr><td style=text-align:left><strong>16</strong><td style=text-align:left><strong>0x10</strong><td style=text-align:left><strong>Ventilation Duration</strong><td style=text-align:left>Ventilation time exceeded (during shutdown).<tr><td style=text-align:left><strong>17</strong><td style=text-align:left><strong>0x11</strong><td style=text-align:left><strong>Fuel Pump Fault</strong><td style=text-align:left>Fuel Pump Open/Short circuit.<tr><td style=text-align:left><strong>20</strong><td style=text-align:left><strong>0x14</strong><td style=text-align:left><strong>No Communication</strong><td style=text-align:left>Heater not receiving data from Controller/Modem.<tr><td style=text-align:left><strong>29</strong><td style=text-align:left><strong>0x1D</strong><td style=text-align:left><strong>Flame Blowout</strong><td style=text-align:left>Flame lost during operation (run mode).<tr><td style=text-align:left><strong>30</strong><td style=text-align:left><strong>0x1E</strong><td style=text-align:left><strong>Flame Detection</strong><td style=text-align:left>Flame detected <em>before</em> start (Sensor stuck high).<tr><td style=text-align:left><strong>31</strong><td style=text-align:left><strong>0x1F</strong><td style=text-align:left><strong>Overheat (Exit)</strong><td style=text-align:left><strong>Air:</strong> Outlet temperature sensor overheat.<tr><td style=text-align:left><strong>33</strong><td style=text-align:left><strong>0x21</strong><td style=text-align:left><strong>Control Lockout</strong><td style=text-align:left>Heater locked due to 3 consecutive Overheats.<tr><td style=text-align:left><strong>37</strong><td style=text-align:left><strong>0x25</strong><td style=text-align:left><strong>Locked (Hard)</strong><td style=text-align:left><strong>CRITICAL:</strong> 3 consecutive Start Failures or Overheats.<br/><em>Requires Unlock Command (<code>0x0D</code>) to reset.</em><tr><td style=text-align:left><strong>78</strong><td style=text-align:left><strong>0x4E</strong><td style=text-align:left><strong>Flame Failure</strong><td style=text-align:left><strong>Liquid Only:</strong> Flame lost during run & restart failed.</table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=7-data-encoding--formulas>7. Data Encoding & Formulas<a href=#7-data-encoding--formulas class=hash-link aria-label="Direct link to 7. Data Encoding & Formulas" title="Direct link to 7. Data Encoding & Formulas" translate=no>​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=71-temperature-encoding>7.1. Temperature Encoding<a href=#71-temperature-encoding class=hash-link aria-label="Direct link to 7.1. Temperature Encoding" title="Direct link to 7.1. Temperature Encoding" translate=no>​</a></h3>
+<ul>
+<li class=""><strong>Type A (Internal, External, Controller Sensors):</strong> 8-bit Signed Integer (<code>int8</code>).<!-- -->
+<ul>
+<li class=""><code>Range: -128°C to +127°C</code></li>
+<li class=""><em>Note: A value of <code>127</code> (<code>0x7F</code>) indicates that the sensor is disconnected.</em></li>
+</ul>
+</li>
+<li class=""><strong>Type B (Flame Sensor):</strong> 16-bit Unsigned Integer (<strong>Big Endian</strong>) in <strong>Kelvin</strong>.<!-- -->
+<ul>
+<li class=""><code>Temp (°C) = ((Byte7 &lt;&lt; 8) | Byte8) -273.15</code></li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=72-voltage-encoding>7.2. Voltage Encoding<a href=#72-voltage-encoding class=hash-link aria-label="Direct link to 7.2. Voltage Encoding" title="Direct link to 7.2. Voltage Encoding" translate=no>​</a></h3>
+<p>Voltage is a 16-bit Big Endian integer spanning <strong>Byte 5 and Byte 6</strong>.</p>
+<ul>
+<li class=""><strong>Formula:</strong> <code>Voltage = ((Byte5 &lt;&lt; 8) | Byte6) / 10.0</code></li>
+<li class=""><em>Note: Byte 5 is non-zero for 24V systems (Values > 25.5V).</em></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=73-fan-rpm>7.3. Fan RPM<a href=#73-fan-rpm class=hash-link aria-label="Direct link to 7.3. Fan RPM" title="Direct link to 7.3. Fan RPM" translate=no>​</a></h3>
+<p>Fan speed is transmitted as Frequency (Hz).</p>
+<ul>
+<li class=""><strong>Formula:</strong> <code>RPM = Byte_Val * 60</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=74-fuel-pump>7.4. Fuel Pump<a href=#74-fuel-pump class=hash-link aria-label="Direct link to 7.4. Fuel Pump" title="Direct link to 7.4. Fuel Pump" translate=no>​</a></h3>
+<p>Pump speed is transmitted as Frequency * 10.</p>
+<ul>
+<li class=""><strong>Formula:</strong> <code>Hz = Byte_Val / 10.0</code></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href=https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-protocol-basics.mdx target=_blank rel="noopener noreferrer" class=theme-edit-this-page><svg fill=currentColor height=20 width=20 viewBox="0 0 40 40" class=iconEdit_Z9Sw aria-hidden=true><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"/></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/docs/category/autoterm-protocol><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>Autoterm Protocol</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/docs/hardware-modules/autoterm-heater/autoterm-protocol/autoterm-initialization><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>Controller Initialization</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#1-physical-layer class="table-of-contents__link toc-highlight">1. Physical Layer</a><li><a href=#2-message-frame-structure class="table-of-contents__link toc-highlight">2. Message Frame Structure</a><li><a href=#3-field-definitions class="table-of-contents__link toc-highlight">3. Field Definitions</a><ul><li><a href=#byte-0-syncpreamble class="table-of-contents__link toc-highlight">Byte 0: Sync/Preamble</a><li><a href=#byte-1-device-identifier class="table-of-contents__link toc-highlight">Byte 1: Device Identifier</a><li><a href=#byte-2-payload-length class="table-of-contents__link toc-highlight">Byte 2: Payload Length</a><li><a href=#byte-3-command-id-high class="table-of-contents__link toc-highlight">Byte 3: Command ID (High)</a><li><a href=#byte-4-command-id-low class="table-of-contents__link toc-highlight">Byte 4: Command ID (Low)</a><li><a href=#byte-5--n-payload class="table-of-contents__link toc-highlight">Byte 5 ... N: Payload</a><li><a href=#byte-n1-n2-checksum-crc-16 class="table-of-contents__link toc-highlight">Byte N+1, N+2: Checksum (CRC-16)</a></ul><li><a href=#4-command-ids--command-reference class="table-of-contents__link toc-highlight">4. Command IDs & Command Reference</a><ul><li><a href=#quick-reference class="table-of-contents__link toc-highlight">Quick Reference</a><li><a href=#41-operational-control class="table-of-contents__link toc-highlight">4.1. Operational Control</a><li><a href=#42-status--telemetry class="table-of-contents__link toc-highlight">4.2. Status & Telemetry</a><li><a href=#43-identification--handshake class="table-of-contents__link toc-highlight">4.3. Identification & Handshake</a><li><a href=#44-diagnostics--testing class="table-of-contents__link toc-highlight">4.4. Diagnostics & Testing</a></ul><li><a href=#5-status-codes-bytes-0--1-of-status-response class="table-of-contents__link toc-highlight">5. Status Codes (Bytes 0 & 1 of Status Response)</a><li><a href=#6-error-codes-byte-2-of-status-response class="table-of-contents__link toc-highlight">6. Error Codes (Byte 2 of Status Response)</a><li><a href=#7-data-encoding--formulas class="table-of-contents__link toc-highlight">7. Data Encoding & Formulas</a><ul><li><a href=#71-temperature-encoding class="table-of-contents__link toc-highlight">7.1. Temperature Encoding</a><li><a href=#72-voltage-encoding class="table-of-contents__link toc-highlight">7.2. Voltage Encoding</a><li><a href=#73-fan-rpm class="table-of-contents__link toc-highlight">7.3. Fan RPM</a><li><a href=#74-fuel-pump class="table-of-contents__link toc-highlight">7.4. Fuel Pump</a></ul></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Docs</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/docs/hardware-modules/autoterm-heater>Hardware Documentation</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Community</div><ul class="footer__items clean-list"><li class=footer__item><a href=https://github.com/connectedvan target=_blank rel="noopener noreferrer" class=footer__link-item>GitHub Repository<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 ConnectedVan. Built with Docusaurus.</div></div></div></footer></div></body>
